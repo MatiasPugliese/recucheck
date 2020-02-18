@@ -8,13 +8,13 @@ route.get('/', function (req, res, next) {
     res.send('Probando 1 2 3');
   });
 
-  router.get("/", (req, res, next) => {
+  route.get("/products", (req, res, next) => {
     if (req.query.categoria) {
         Categoria.findOne({
             where: {nombre: req.query.categoria}
         })
             .then((data) => {
-                Productos.findAll({
+                Product.findAll({
                     where: {CategoriaId: data.dataValues.id}
                 })
                     .then((data) => {
@@ -22,7 +22,7 @@ route.get('/', function (req, res, next) {
                     })
             })
         }else {
-            Productos.findAll()
+            Product.findAll()
                 .then((data) => {
                 res.json(data)
             })
